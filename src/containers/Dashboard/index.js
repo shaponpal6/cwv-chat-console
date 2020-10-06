@@ -1,40 +1,12 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Layout } from "antd";
 
-import { AppContext } from "../../store";
-import "antd/dist/antd.css";
 import "./style.css";
 
 const {  Content } = Layout;
 
 const ChatApp = () => {
-  const [state, dispatch] = useContext(AppContext);
-
-  // // Chat Button Open / Close
-  // const onChatButtonClick = (e) => {
-  //   console.log(e);
-  //   onChatStartClick()
-  //   dispatch({
-  //     type: 'ON_OFF',
-  //     payload: 'chatWidget',
-  //   });
-  // };
-
-  // // Chat Welcome Open / Close
-  // const onChatWelcomeBoxClose = () => {
-  //   dispatch({
-  //     type: 'ON_OFF',
-  //     payload: 'welcomeBox',
-  //   });
-  // };
-
-  // // Chat Start Button
-  // const onChatStartClick = () => {
-  //   dispatch({
-  //     type: 'SET_ROUTE',
-  //     payload: 'chatWidget',
-  //   });
-  // };
+ 
 
   return (
     <div className="wpcwv-dashboard">
