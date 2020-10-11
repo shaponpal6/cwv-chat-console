@@ -1,20 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import Firebase, { FirebaseContext } from "./firebase";
+
+// import TodoApp from "./TodoApp";
+import App from './App'
 import "./index.css";
-import App from "./containers/App";
-import AppContextProvider from "./store";
+
+// import Auth from "./containers/Auth";
 import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
-  // <React.StrictMode>
-  <AppContextProvider>
-    <App />
-  </AppContextProvider>,
-  // </React.StrictMode>
+  <div>
+    <FirebaseContext.Provider value={new Firebase()}>
+      <App />
+    </FirebaseContext.Provider>
+  </div>,
   document.getElementById("wpcwvAdmin")
 );
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();

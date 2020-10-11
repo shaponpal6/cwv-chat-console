@@ -1,55 +1,67 @@
-import React, {  useContext } from "react";
-import { Layout, Menu } from "antd";
+import React, {useEffect} from "react";
+import { connect } from "react-redux";
 
-import { AppContext } from "../../store";
+import { setMenuState } from "../../redux/actions";
+// import { APP_ROUTE } from "../../constants";
+import { Menu,  Row, Col } from "antd";
+
+// import { AppContext } from "../../store";
 
 import Dashboard from '../Dashboard';
 import ChatConsole from '../ChatConsole';
+import KnowledgeBase from '../KnowledgeBase';
 
 
 import 'antd/dist/antd.css';
 import "./style.css";
 
-const { Header } = Layout;
 
 
-const ChatApp = () => {
-  const [state, dispatch] = useContext(AppContext);
+const ChatApp = ({ chatRoute, setMenuState }) => {
+  const state = {chatRoute: "console"};
+ 
+
+  useEffect(function(){
+    console.log('state', state)
+  }, [state])
 
   // Chat Button Open / Close
   const onMenuClick = (e) => {
     console.log(e.key);
-    dispatch({
-      type: 'SET_ROUTE',
-      payload: e.key ? e.key : 'dashboard',
-    });
+    setMenuState(e.key);
   };
 
   return (
     <div className="wpcwv-adminContainer">
-      <h2>Do not Think so much. Just work</h2>
-
       
+    <Row>
+      <Col flex="100px">Simple ChatApp</Col>
+      <Col flex="auto">
 
-      <Layout>
-        <Header className="header">
-          <div className="logo" />
-          <Menu theme="dark" mode="horizontal" defaultSelectedKeys={[state.chatRoute]}>
+        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={[chatRoute]}>
             <Menu.Item key="dashboard" onClick={onMenuClick}>Dashboard</Menu.Item>
             <Menu.Item key="console" onClick={onMenuClick}>Console</Menu.Item>
-            <Menu.Item key="3" onClick={onMenuClick}>nav 3</Menu.Item>
+            <Menu.Item key="knowledgebase" onClick={onMenuClick}>Knowledge Base</Menu.Item>
           </Menu>
-        </Header>
-        <Layout>
-         {/* Page here */}
-         {state.chatRoute === "dashboard"  && <Dashboard />}
-         {state.chatRoute === "console"  && <ChatConsole />}
+      </Col>
+      <Col flex="100px">BTN</Col>
+    </Row>
 
-        </Layout>
-      </Layout>
-    
+       {chatRoute === "dashboard"  && <Dashboard />}
+         {chatRoute === "console"  && <ChatConsole />}
+         {chatRoute === "knowledgebase"  && <KnowledgeBase />}
+
     </div>
   );
 };
 
-export default ChatApp;
+
+const mapStateToProps = state => {
+  console.log(state)
+  return {chatRoute: state.menus.chatRoute};
+};
+// export default VisibilityFilters;
+export default connect(
+  mapStateToProps,
+  { setMenuState }
+)(ChatApp);
