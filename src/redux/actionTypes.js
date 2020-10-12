@@ -5,4 +5,5 @@ export const SET_FILTER = "SET_FILTER";
 
 export const APP_ROUTER = "APP_ROUTER";
 export const ADD_MESSAGE = "ADD_MESSAGE";
+export const SET_CLIENTS_LIST = "SET_CLIENTS_LIST";
 export const ADD_KNOWLEDGE = "ADD_KNOWLEDGE";

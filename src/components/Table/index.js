@@ -140,7 +140,3 @@ function TableConponemt() {
 
 
 export default TableConponemt
-
-
-
-

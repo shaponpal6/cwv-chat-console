@@ -4,6 +4,7 @@ import {
   SET_FILTER,
   APP_ROUTER,
   ADD_MESSAGE,
+  SET_CLIENTS_LIST,
   ADD_KNOWLEDGE,
 } from "./actionTypes";
 
@@ -32,12 +33,13 @@ export const setMenuState = (menu) => ({
   payload: menu,
 });
 
-export const addMessage = (content) => ({
+export const addMessage = (message) => ({
   type: ADD_MESSAGE,
-  payload: {
-    id: ++nextTodoId,
-    content,
-  },
+  payload: message
+});
+export const setClientsList = (content) => ({
+  type: SET_CLIENTS_LIST,
+  payload: content,
 });
 
 export const addKnowledge = (content) => ({

@@ -1,4 +1,4 @@
-import { TOGGLE_TODO,ADD_MESSAGE } from "../actionTypes";
+import { TOGGLE_TODO,ADD_MESSAGE, SET_CLIENTS_LIST } from "../actionTypes";
 
 const initialState = {
   clientId: "111",
@@ -11,19 +11,21 @@ const initialState = {
 export default function (state = initialState, action) {
   switch (action.type) {
     case ADD_MESSAGE: {
-      const { id, content } = action.payload;
       return {
         ...state,
         messages: [
           ...state.messages,
-           {
-             id: id,
-            text: content,
-            completed: false,
-          },
+          action.payload,
         ],
       };
     }
+    case SET_CLIENTS_LIST: {
+      return {
+        ...state,
+        clientsList: action.payload,
+      };
+    }
+    
     case TOGGLE_TODO: {
       const { id } = action.payload;
       return {

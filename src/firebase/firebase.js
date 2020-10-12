@@ -19,14 +19,45 @@ class Firebase {
 
     this.auth = app.auth();
     this.db = app.firestore();
+    this.firestore = app.firestore;
     this.googleProvider = new app.auth.GoogleAuthProvider();
   }
 
   // *** Auth API ***
 
   getAuth = () => this.auth;
+  getCollection = (ref) => this.db.collection(ref);
+  getDoc = (ref) => this.db.doc(ref);
+  setData = (collection, uid, data) => this.db.collection(collection).doc(uid).set(data);
+  addData = (collection, uid, field, data) => this.db.collection(collection).doc(uid).collection(field).add(data);
+  addMessage = (uid, data) => this.db.collection('clients').doc(uid).doc('messages').update('array', data);
+  updateMessages = (uid, data) => {
+    const clientRef = this.db.collection('clients').doc(uid);
+    // data.time = this.firestore.Timestamp.now();
+    return clientRef.update({
+      messages: this.firestore.FieldValue.arrayUnion(data)
+  });
+  };
 
-  getCurrentUser = () => this.auth.currentUser;
+  // Update Map
+  updateUserListMap = (uid, data) => {
+    const chatUsersList = this.db.collection('lists').doc('chatUsersList');
+    data.seen = this.firestore.Timestamp.now();
+    return chatUsersList.set({
+      "users": { [uid] : data}
+  },{merge: true});
+  };
+
+  // get users Map
+  getListData = (type = 'chatUsersList') => {
+    return this.db.doc(`lists/${type}`);
+  };
+
+  getCurrentUser = ()  => this.auth.currentUser;
+  getServerTimestamp = () => this.firestore.FieldValue.serverTimestamp();
+  getUserID = () => this.getCurrentUser().uid;
+  getDisplayName = () => this.getCurrentUser().displayName;
+  getPhotoURL = () => this.getCurrentUser().photoURL;
 
   doCreateUserWithEmailAndPassword = (email, password) =>
     this.auth.createUserWithEmailAndPassword(email, password);
