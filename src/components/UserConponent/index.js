@@ -9,31 +9,30 @@ const { Meta } = Card;
 
 
 
-function UserComponent({user, onClick}) {
-    return (
-        <div>
-            {/* <Meta
+function UserComponent({ user, onClick }) {
+  return (
+    <div>
+      {/* <Meta
                 avatar={
                 <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
                 }
                 title={user.name}
             /> */}
-             <Card hoverable style={{ width: "100%" }} onClick={(key) => {
-                    onClick(key);
-                }}>
-              <Meta
-                avatar={
-                  <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                }
-                title={user.name}
-                uid={user.uid}
-                description="This is the description"
-                
-              />
-            </Card>
-            
-        </div>
-    )
+      <Card hoverable style={{ width: "100%" }} >
+        <Meta
+          avatar={
+            <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+          }
+          title={user.name}
+          uid={user.uid}
+          onClick={onClick}
+          description="This is the description"
+
+        />
+      </Card>
+
+    </div>
+  )
 }
 
 // UserComponent.propTypes = {

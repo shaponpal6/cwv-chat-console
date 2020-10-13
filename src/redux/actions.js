@@ -4,6 +4,9 @@ import {
   SET_FILTER,
   APP_ROUTER,
   ADD_MESSAGE,
+  SET_CLIENT_DATA,
+  SET_MESSAGES,
+  SET_CLIENT_ID,
   SET_CLIENTS_LIST,
   ADD_KNOWLEDGE,
 } from "./actionTypes";
@@ -36,6 +39,20 @@ export const setMenuState = (menu) => ({
 export const addMessage = (message) => ({
   type: ADD_MESSAGE,
   payload: message
+});
+
+export const setClientData = (data) => ({
+  type: SET_CLIENT_DATA,
+  payload: data
+});
+
+export const setMessages = (message) => ({
+  type: SET_MESSAGES,
+  payload: message
+});
+export const setClientID = (clientID) => ({
+  type: SET_CLIENT_ID,
+  payload: clientID,
 });
 export const setClientsList = (content) => ({
   type: SET_CLIENTS_LIST,

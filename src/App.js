@@ -33,8 +33,8 @@ function App({ firebase }) {
   if (user) {
     return (
       <div>
-        <p>Current User: {user.email}</p>
-        <button onClick={()=>firebase.doSignOut()}>Log out</button>
+        {/* <p>Current User: {user.email}</p> */}
+        {/* <button onClick={()=>firebase.doSignOut()}>Log out</button> */}
         <Provider store={store}>
           <AdminApp />
         </Provider>

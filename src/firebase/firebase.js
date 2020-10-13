@@ -30,13 +30,26 @@ class Firebase {
   getDoc = (ref) => this.db.doc(ref);
   setData = (collection, uid, data) => this.db.collection(collection).doc(uid).set(data);
   addData = (collection, uid, field, data) => this.db.collection(collection).doc(uid).collection(field).add(data);
+
   addMessage = (uid, data) => this.db.collection('clients').doc(uid).doc('messages').update('array', data);
   updateMessages = (uid, data) => {
     const clientRef = this.db.collection('clients').doc(uid);
     // data.time = this.firestore.Timestamp.now();
     return clientRef.update({
       messages: this.firestore.FieldValue.arrayUnion(data)
-  });
+    });
+  };
+  setMessages = (uid, data) => {
+    const clientRef = this.db.collection('clients').doc(uid);
+    // data.time = this.firestore.Timestamp.now();
+    return clientRef.set({
+      messages: this.firestore.FieldValue.arrayUnion(data)
+    }, { merge: true });
+  };
+  // get users Map
+  getClientData = (uid) => {
+    if (!uid || uid === '') return null;
+    return this.db.doc(`clients/${uid}`);
   };
 
   // Update Map
@@ -44,8 +57,8 @@ class Firebase {
     const chatUsersList = this.db.collection('lists').doc('chatUsersList');
     data.seen = this.firestore.Timestamp.now();
     return chatUsersList.set({
-      "users": { [uid] : data}
-  },{merge: true});
+      "users": { [uid]: data }
+    }, { merge: true });
   };
 
   // get users Map
@@ -53,7 +66,9 @@ class Firebase {
     return this.db.doc(`lists/${type}`);
   };
 
-  getCurrentUser = ()  => this.auth.currentUser;
+
+
+  getCurrentUser = () => this.auth.currentUser;
   getServerTimestamp = () => this.firestore.FieldValue.serverTimestamp();
   getUserID = () => this.getCurrentUser().uid;
   getDisplayName = () => this.getCurrentUser().displayName;
